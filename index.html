@@ -95,10 +95,10 @@
       const NO_BUTTON_MESSAGES = [
         'No',
         'Are you sure?',
-        'Pookie please',
+        "I know you don't want to do this ",
         "Don't do this to me :(",
         "You're breaking my heart",
-        "I'm gonna cry...",
+        "Ok Bye",
       ];
 
       const ALT_TEXTS = [
@@ -137,6 +137,28 @@
 
         // Update "No" button text with increasingly desperate messages
         noButton.textContent = NO_BUTTON_MESSAGES[noClickCount];
+      });
+
+      // Make the No button run away when it reaches "Ok Bye" stage
+      noButton.addEventListener('mouseover', () => {
+        if (noClickCount >= MAX_NO_CLICKS) {
+          // Get viewport dimensions
+          const viewportWidth = window.innerWidth;
+          const viewportHeight = window.innerHeight;
+          const buttonRect = noButton.getBoundingClientRect();
+          
+          // Calculate random position within viewport bounds
+          const maxX = viewportWidth - buttonRect.width - 20;
+          const maxY = viewportHeight - buttonRect.height - 20;
+          const randomX = Math.floor(Math.random() * maxX) + 10;
+          const randomY = Math.floor(Math.random() * maxY) + 10;
+          
+          // Make button fixed positioned and move it
+          noButton.style.position = 'fixed';
+          noButton.style.left = `${randomX}px`;
+          noButton.style.top = `${randomY}px`;
+          noButton.style.zIndex = '9999';
+        }
       });
 
       yesButton.addEventListener('click', () => {
